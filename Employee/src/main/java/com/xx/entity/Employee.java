@@ -22,6 +22,9 @@ public class Employee {
 	private Integer returnStatus = 1;
 	
 	 public String getEntryTime() {
+		 if(entryTime == null) {
+			 return null;
+		 }
 			//SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			//SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -25,9 +25,9 @@ public class AdminServiceImpl implements IAdminService{
 	public AdminInfo adminLogin(AdminInfo adminInfo) {
 		Integer returnStatus = 1;
 		// 判断名字是否为空 10  密码是否为空 9  用户名是否存在 8  密码是否正确 7 登录成功1
-		if (adminInfo.getAdminName().isEmpty()) {
+		if (adminInfo.getAdminName() == null) {
 			returnStatus = 10;
-		} else if (adminInfo.getAdminPassword().isEmpty()) {
+		} else if (adminInfo.getAdminPassword() == null) {
 			returnStatus = 9;
 		} else {
 			if(adminInfoMapper.beforeAdminLogin1(adminInfo) == 0) {
@@ -55,11 +55,11 @@ public class AdminServiceImpl implements IAdminService{
 	 * @return 返回integer
 	 */
 	public Integer insertEmployee(Employee employee) {
-		if (employee.getEmployeeName().isEmpty()) {
+		if (employee.getEmployeeName() == null) {
 			return 10;
 		}
 			
-		if (employee.getIdCard().isEmpty()) {
+		if (employee.getIdCard() == null) {
 			return 9;
 		}
 		
@@ -92,15 +92,15 @@ public class AdminServiceImpl implements IAdminService{
 			return 10;
 		}
 		
-		if(employee.getEmployeeName().isEmpty()) {
+		if(employee.getEmployeeName() == null) {
 			return 9;
 		}
 		
-		if(employee.getIdCard().isEmpty()) {
+		if(employee.getIdCard() == null) {
 			return 8;
 		}
 		
-		if(employee.getEmployeePassword().isEmpty()) {
+		if(employee.getEmployeePassword() == null) {
 			return 7;
 		}
 		

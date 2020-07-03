@@ -23,9 +23,9 @@ public class EmployServiceImpl implements IEmployeeService {
 		
 		Integer returnStatus = 1;
 		// 判断名字是否为空 10  密码是否为空 9  用户名是否存在 8  密码是否正确 7 登录成功1
-		if (employee.getEmployeeName().isEmpty()) {
+		if (employee.getEmployeeName() == null) {
 			returnStatus = 10;
-		} else if (employee.getEmployeePassword().isEmpty()) {
+		} else if (employee.getEmployeePassword() == null) {
 			returnStatus = 9;
 		} else {
 			if(employeeMapper.beforeLogin1(employee) == 0) {
