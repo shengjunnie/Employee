@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xx.mapper.EmployeeMapper" >
+
+	<resultMap id="BaseResultMap" type="com.xx.entity.Employee" >
+    	<id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    	<result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    	<result column="id_card" property="idCard" jdbcType="CHAR" />
+    	<result column="position_id" property="positionId" jdbcType="INTEGER" />
+    	<result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    	<result column="employee_password" property="employeePassword" jdbcType="VARCHAR" />
+    	<result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+  	</resultMap>
+	
+	<!-- 员工登录 -->
+ 	<select id="employeeLogin" parameterType="employee" resultMap="BaseResultMap">
+ 		select * from employee 
+ 		where employee_name = #{employeeName} and employee_password = #{employeePassword}
+ 	</select>
+ 	
+ 	<!-- 登录前 查找是否有该用户名 -->
+ 	<select id="beforeLogin1" parameterType="employee" resultType="int">
+ 		select count(*) from employee 
+ 		where employee_name = #{employeeName}
+ 	</select>
+ 	
+ 	<!-- 登录前 判断密码是否正确 -->
+ 	<select id="beforeLogin2" parameterType="employee" resultType="int">
+ 		select count(*) from employee 
+ 		where employee_name = #{employeeName} and employee_password = #{employeePassword}
+ 	</select>
+</mapper>

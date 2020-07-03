@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xx.mapper.AdminInfoMapper" >
+	
+	<resultMap id="EmployeeMap" type="com.xx.entity.Employee" >
+    	<id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    	<result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    	<result column="id_card" property="idCard" jdbcType="CHAR" />
+    	<result column="position_id" property="positionId" jdbcType="INTEGER" />
+    	<result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    	<result column="employee_password" property="employeePassword" jdbcType="VARCHAR" />
+  	</resultMap>
+	
+	<resultMap id="BaseResultMap" type="com.xx.entity.AdminInfo" >
+    	<id column="admin_id" property="adminId" jdbcType="INTEGER" />
+    	<result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    	<result column="admin_password" property="adminPassword" jdbcType="VARCHAR" />
+  	</resultMap>
+  
+  
+  	<!-- 管理员登录 返回管理员信息 -->
+  	<select id="adminLogin" parameterType="admininfo" resultMap="BaseResultMap">
+  		select * from admin_info
+  		where admin_name = #{adminName} and admin_password = #{adminPassword}
+  	</select>
+  	
+  	<select id="beforeAdminLogin1" parameterType="admininfo" resultType="int">
+  		select count(*) from admin_info
+  		where admin_name = #{adminName}
+  	</select>
+  	
+  	<select id="beforeAdminLogin2" parameterType="admininfo" resultType="int">
+  		select count(*) from admin_info
+  		where admin_name = #{adminName} and admin_password = #{adminPassword}
+  	</select>
+  	
+  	
+  	<!-- 管理员  填加新员工 -->
+  	<insert id="insertEmployee" parameterType="employee">
+  		insert into employee(employee_name,id_card,employee_password) 
+  		values(#{employeeName},#{idCard},#{employeePassword})
+  	</insert>
+  	
+  	<!-- 管理员  编辑员工 -->
+  	<insert id="updateEmployee" parameterType="employee">
+  		update employee set 
+  		employee_name = #{employeeName}, employee_password = #{employeePassword}, id_card = #{idCard}
+  		where employee_id = #{employeeId}
+  	</insert>
+  	
+</mapper>
