@@ -63,6 +63,10 @@ public class AdminServiceImpl implements IAdminService{
 			return 9;
 		}
 		
+		if (employee.getPhoneNum() == null) {
+			return 6;
+		}
+		
 		//判断姓名是否存在重复
 		if(employeeMapper.beforeLogin1(employee) != 0) {
 			return 8;
@@ -102,6 +106,10 @@ public class AdminServiceImpl implements IAdminService{
 		
 		if(employee.getEmployeePassword() == null) {
 			return 7;
+		}
+		
+		if(employee.getPhoneNum() == null) {
+			return 5;
 		}
 		
 		//判断姓名是否存在重复
