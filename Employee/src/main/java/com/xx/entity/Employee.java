@@ -19,30 +19,9 @@ public class Employee {
 	
 	private String entryTime;
 	
-	private String phoneNum;
-	
-	private Integer employeeStatus;
-	
 	private Integer returnStatus = 1;
 	
-	
-	public Integer getEmployeeStatus() {
-		return employeeStatus;
-	}
-
-	public void setEmployeeStatus(Integer employeeStatus) {
-		this.employeeStatus = employeeStatus;
-	}
-
-	public String getPhoneNum() {
-		return phoneNum;
-	}
-
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
-
-	public String getEntryTime() {
+	 public String getEntryTime() {
 		 if(entryTime == null) {
 			 return null;
 		 }
