@@ -49,7 +49,9 @@ public class AdminHandler {
 		response.setCharacterEncoding("UTF-8");
 		
 		System.out.println("*****管理员管理员添加新员工*****");
-		
+		System.out.println(employee.getEmployeeName());
+		System.out.println(employee.getIdCard());
+		System.out.println(employee.getPhoneNum());
 		response.getWriter().print(adminServiceImpl.insertEmployee(employee));
 		
 		System.out.println("*****管理员添加新员工*****");

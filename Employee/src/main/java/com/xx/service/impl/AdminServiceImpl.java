@@ -14,6 +14,7 @@ public class AdminServiceImpl implements IAdminService{
 	
 	@Autowired
 	private AdminInfoMapper adminInfoMapper;
+	@Autowired
 	private EmployeeMapper employeeMapper;
 	
 	

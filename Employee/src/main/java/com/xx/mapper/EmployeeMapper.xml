@@ -10,6 +10,8 @@
     	<result column="dept_id" property="deptId" jdbcType="INTEGER" />
     	<result column="employee_password" property="employeePassword" jdbcType="VARCHAR" />
     	<result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+    	<result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    	<result column="employee_status" property="employeeStatus" jdbcType="INTEGER" />
   	</resultMap>
 	
 	<!-- 员工登录 -->
