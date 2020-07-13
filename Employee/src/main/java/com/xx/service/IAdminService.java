@@ -1,7 +1,11 @@
 package com.xx.service;
 
+import java.util.List;
+
 import com.xx.entity.AdminInfo;
 import com.xx.entity.Employee;
+import com.xx.entity.EmployeeWork;
+import com.xx.entity.UncheckedWork;
 
 public interface IAdminService {
 	
@@ -28,4 +32,27 @@ public interface IAdminService {
 	 * @return
 	 */
 	public Integer updateEmployee(Employee employee);
+	
+	
+	/**
+	 * 管理员查看所有未审核
+	 * @return
+	 */
+	public List<UncheckedWork> selectAllUnchecked();
+	
+	
+	/**
+	 * 管理员审查通过
+	 * @param work
+	 * @return
+	 */
+	public Integer uncheckedPass(EmployeeWork work);
+	
+	
+	/**
+	 * 管理员审查不通过  删除待审核表做工情况
+	 * @param employeeId 员工的id
+	 * @return
+	 */
+	public Integer deleteUnchecked(EmployeeWork work);
 }

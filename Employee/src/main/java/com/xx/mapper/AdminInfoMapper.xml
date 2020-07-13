@@ -20,6 +20,17 @@
     	<result column="admin_password" property="adminPassword" jdbcType="VARCHAR" />
   	</resultMap>
   
+  	<!-- 员工提交为审查的工作记录 -->
+ 	<resultMap id="uncheckedWorkMap" type="com.xx.entity.UncheckedWork" >
+    	<id column="unchecked_id" property="uncheckedId" jdbcType="INTEGER" />
+    	<result column="cargo" property="Cargo" jdbcType="VARCHAR" />
+    	<result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    	<result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    	<result column="submission_time" property="submissionTime" jdbcType="VARCHAR" />
+    	<result column="work_type" property="workType" jdbcType="VARCHAR" />
+    	<result column="quantity" property="quantity" jdbcType="double" />
+    	<result column="work_id" property="workId" jdbcType="INTEGER" />
+  	</resultMap>
   
   	<!-- 管理员登录 返回管理员信息 -->
   	<select id="adminLogin" parameterType="admininfo" resultMap="BaseResultMap">
@@ -50,5 +61,27 @@
   		employee_name = #{employeeName}, employee_password = #{employeePassword}, id_card = #{idCard}
   		where employee_id = #{employeeId}
   	</insert>
+  	
+  	<!-- 管理员查看每日员工提交的做工信息 -->
+  	<select id="selectAllUnchecked" resultMap="uncheckedWorkMap">
+  		select * from unchecked_work
+  	</select>
+  	
+  	<!-- 管理员审核员工做工信息 审核通过 通过workId 得到计算工资的方法 -->
+  	<select id="selectWorkTypePrice" parameterType="int" resultType="double">
+  		select price from work_type where work_id = #{value}
+  	</select>
+  	 
+  	<!-- 管理员审核员工做工信息  审核通过 将未审核表数据添加到已审核表-->
+  	<insert id="insertCheckWork" parameterType="EmployeeWork">
+  		insert into employee_works(employee_id,employee_name,cargo,work_type,quantity,work_id,commission)
+  		values(#{employeeId},#{employeeName},#{cargo},#{workType},#{quantity},#{workId},#{commission})
+  	</insert>
+  	
+  	<!-- 管理员审核员工做工信息  审核通过 将待审核表的数据删除-->
+  	<!-- 管理员审核员工做工信息  审核不通过 删除待审核表信息-->
+  	<delete id="deleteUnchecked" parameterType="EmployeeWork">
+  		delete from unchecked_work where employee_id = #{employeeId} and date_format(submission_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+  	</delete>
   	
 </mapper>

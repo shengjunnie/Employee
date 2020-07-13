@@ -1,7 +1,11 @@
 package com.xx.mapper;
 
+import java.util.List;
+
 import com.xx.entity.AdminInfo;
 import com.xx.entity.Employee;
+import com.xx.entity.EmployeeWork;
+import com.xx.entity.UncheckedWork;
 
 public interface AdminInfoMapper {
 	
@@ -44,5 +48,36 @@ public interface AdminInfoMapper {
 	 * @return
 	 */
 	Integer updateEmployee(Employee employee);
+	
+	
+	/**
+	 * 管理员查看所有的未审查的做工情况
+	 * @return
+	 */
+	List<UncheckedWork> selectAllUnchecked();
+	
+	
+	/**
+	 * 管理员审查通过计算工资时 查询工作类型的单价
+	 * @param workId
+	 * @return
+	 */
+	double selectWorkTypePrice(Integer workId);
+	
+	
+	/**
+	 * 管理员审查通过 添加到已审核表
+	 * @param work 包含了员工id 姓名 货种 工作方式 数量 金额 
+	 * @return
+	 */
+	Integer insertCheckWork(EmployeeWork work);
+	
+	
+	/**
+	 * 管理员审查不通过  删除待审核表做工情况
+	 * @param employeeId 员工的id
+	 * @return
+	 */
+	Integer deleteUnchecked(EmployeeWork work);
 	
 }

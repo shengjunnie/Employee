@@ -31,4 +31,40 @@
  		select count(*) from employee 
  		where employee_name = #{employeeName} and employee_password = #{employeePassword}
  	</select>
+ 	
+ 	<!-- 员工提交为审查的工作记录 -->
+ 	<resultMap id="uncheckedWorkMap" type="com.xx.entity.UncheckedWork" >
+    	<id column="unchecked_id" property="uncheckedId" jdbcType="INTEGER" />
+    	<result column="cargo" property="Cargo" jdbcType="VARCHAR" />
+    	<result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    	<result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    	<result column="submission_time" property="submissionTime" jdbcType="VARCHAR" />
+    	<result column="work_type" property="workType" jdbcType="VARCHAR" />
+    	<result column="quantity" property="quantity" jdbcType="double" />
+    	<result column="work_id" property="workId" jdbcType="INTEGER" />
+  	</resultMap>
+  	
+  	<!-- 员工提交工作记录 -->
+  	<insert id="addUncheckedWork" parameterType="com.xx.entity.UncheckedWork">
+  		insert into unchecked_work(employee_id,employee_name,cargo,work_type,quantity,work_id) 
+  		values(#{employeeId},#{employeeName},#{cargo},#{workType},#{quantity},#{workId})
+  	</insert>
+  	
+  	<!-- 提交前判断是否今日已经审核过 -->
+  	<select id="ExistChecked" parameterType="UncheckedWork" resultType="int">
+  		select count(employeeId) from employee_works 
+  		where employeeId = #{employeeId} and date_format(time,'%Y-%m-%d')= date_format(now(),'%Y-%m-%d')
+  	</select>
+  	
+  	<!-- 提交前判断是否今日提交过 -->
+  	<select id="ExistUnchecked" parameterType="UncheckedWork" resultType="int">
+  		select count(employeeId) from unchecked_work 
+  		where employeeId = #{employeeId} and date_format(submission_time,'%Y-%m-%d')= date_format(now(),'%Y-%m-%d')
+  	</select>
+ 	
+ 	<!-- 提交前判断是否今日提交过  若已提交 先删除 再提交 -->
+  	<delete id="deleteExistUnchecked" parameterType="UncheckedWork">
+  		delete from unchecked_work
+  		where employeeId = #{employeeId} and date_format(submission_time,'%Y-%m-%d')= date_format(now(),'%Y-%m-%d')
+  	</delete>
 </mapper>
